@@ -1,27 +1,30 @@
 /**
- * ESP8266 WiFi舵机控制工程 — 纯API版
- * 版本：v2.0
+ * ESP8266 WiFi舵机控制工程 — AP直连版
+ * 版本：v2.1
  * 日期：2026-05-03
- * 描述：通过REST API控制SG90舵机，由Android App驱动
+ * 描述：ESP8266创建WiFi热点，手机直连控制SG90舵机
+ *
+ * AP信息：
+ *   SSID: ESP8266-Servo
+ *   密码: 12345678
+ *   IP:   192.168.4.1
  *
  * API端点：
  *   GET /set?angle=N  设置舵机角度（0-180）
  *   GET /get          返回当前舵机角度
  *
  * 功能：
- *  - WiFi连接超时机制，超时后自动重启
- *  - WiFi断线自动重连（每5秒检测一次）
- *  - angle参数纯数字校验
  *  - 舵机PWM脉冲宽度校准
+ *  - angle参数纯数字校验
  */
 
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <Servo.h>
 
-// WiFi配置
-#define WIFI_SSID "别睡了"
-#define WIFI_PASSWORD "buyaocengwifi"
+// AP配置（手机WiFi列表中找到此名称连接）
+#define AP_SSID "ESP8266-Servo"
+#define AP_PASSWORD "12345678"
 
 // 硬件配置
 #define SERVO_PIN 2          // 舵机信号引脚（D4 = GPIO2）
@@ -29,9 +32,6 @@
 // 舵机PWM脉冲宽度校准（SG90典型范围：500~2500µs）
 #define SERVO_PULSE_MIN 500
 #define SERVO_PULSE_MAX 2500
-
-// WiFi连接超时（最多尝试40次 × 500ms = 20秒）
-#define WIFI_TIMEOUT 40
 
 // 全局对象和变量
 ESP8266WebServer server(80);
@@ -46,51 +46,27 @@ void setup() {
   myServo.attach(SERVO_PIN, SERVO_PULSE_MIN, SERVO_PULSE_MAX);
   myServo.write(servoPosition);
 
-  // WiFi连接 — 带超时机制，超时后重启
-  Serial.print("Connecting to WiFi");
+  // 创建WiFi热点
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(AP_SSID, AP_PASSWORD);
 
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.println("");
+  Serial.print("AP started: ");
+  Serial.println(AP_SSID);
+  Serial.print("AP IP: ");
+  Serial.println(WiFi.softAPIP());
 
-  int attempts = 0;
-  while (WiFi.status() != WL_CONNECTED && attempts < WIFI_TIMEOUT) {
-    delay(500);
-    Serial.print(".");
-    attempts++;
-  }
-
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("");
-    Serial.println("WiFi connected!");
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
-
-    server.on("/set", handleSetServo);
-    server.on("/get", handleGetPosition);
-    server.onNotFound(handleNotFound);
-    server.begin();
-    Serial.println("API server started!");
-  } else {
-    Serial.println("");
-    Serial.println("WiFi connection failed! Rebooting in 3 seconds...");
-    delay(3000);
-    ESP.restart();
-  }
+  server.on("/set", handleSetServo);
+  server.on("/get", handleGetPosition);
+  server.onNotFound(handleNotFound);
+  server.begin();
+  Serial.println("API server started!");
 }
 
 // ============================================================
 // loop() — 主循环
 // ============================================================
 void loop() {
-  // 每5秒检测WiFi状态，断线自动重连
-  static unsigned long lastWifiCheck = 0;
-  if (millis() - lastWifiCheck > 5000) {
-    lastWifiCheck = millis();
-    if (WiFi.status() != WL_CONNECTED) {
-      Serial.println("WiFi disconnected! Reconnecting...");
-      WiFi.reconnect();
-    }
-  }
-
   server.handleClient();
 }
 

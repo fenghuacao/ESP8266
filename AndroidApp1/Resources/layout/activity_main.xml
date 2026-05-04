@@ -201,48 +201,6 @@
         </LinearLayout>
 
         <!-- ============================================ -->
-        <!-- 底部：服务器 IP 设置 -->
-        <!-- ============================================ -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#ffffff"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Server"
-                android:textSize="13sp"
-                android:textColor="#666666"
-                android:layout_marginEnd="8dp"/>
-
-            <EditText
-                android:id="@+id/etServerAddress"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:hint="IP address"
-                android:inputType="textUri"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:background="@android:drawable/editbox_background"
-                android:layout_marginEnd="8dp"/>
-
-            <Button
-                android:id="@+id/btnConnect"
-                android:layout_width="70dp"
-                android:layout_height="36dp"
-                android:text="Set"
-                android:textSize="12sp"
-                android:textColor="#ffffff"
-                android:background="#4CAF50"/>
-
-        </LinearLayout>
-
-        <!-- ============================================ -->
         <!-- 连接日志（启动扫描时自动显示） -->
         <!-- ============================================ -->
         <LinearLayout
