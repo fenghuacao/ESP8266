@@ -91,6 +91,7 @@ namespace AndroidApp1
                 {
                     LogMessage($"Connected: {saved}");
                     ApplyAddress(saved);
+                    await SyncPositionAsync();
                     return;
                 }
                 LogMessage($"Saved IP unreachable, scanning...");
@@ -113,6 +114,7 @@ namespace AndroidApp1
                 LogMessage($"Auto-connected: {found}");
                 prefs.Edit().PutString(PREF_KEY_ADDR, found).Apply();
                 ApplyAddress(found);
+                await SyncPositionAsync();
                 Toast.MakeText(this, $"Auto-connected: {found}", ToastLength.Short).Show();
             }
             else
@@ -281,6 +283,28 @@ namespace AndroidApp1
                 tvLog.Text += $"\n[{timestamp}] {msg}";
         }
 
+        /// <summary>从 ESP8266 回读当前角度，同步到滑块和显示</summary>
+        private async Task SyncPositionAsync()
+        {
+            try
+            {
+                using var cts = new CancellationTokenSource(2000);
+                using var response = await httpClient.GetAsync($"http://{serverAddress}/get", cts.Token);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string body = (await response.Content.ReadAsStringAsync()).Trim();
+                    if (int.TryParse(body, out int angle) && angle >= 0 && angle <= 180)
+                    {
+                        tvPosition.Text = $"{angle}°";
+                        sbServo.Progress = angle;
+                        etManual.Text = angle.ToString();
+                    }
+                }
+            }
+            catch { }
+        }
+
         private void ApplyAddress(string addr)
         {
             serverAddress = addr;
@@ -291,7 +315,7 @@ namespace AndroidApp1
             SetStatus(true);
         }
 
-        private void BtnConnect_Click(object sender, System.EventArgs e)
+        private async void BtnConnect_Click(object sender, System.EventArgs e)
         {
             string addr = etServerAddress.Text.Trim();
             if (string.IsNullOrEmpty(addr))
@@ -302,6 +326,7 @@ namespace AndroidApp1
             GetSharedPreferences(PREF_NAME, FileCreationMode.Private)
                 .Edit().PutString(PREF_KEY_ADDR, addr).Apply();
             ApplyAddress(addr);
+            await SyncPositionAsync();
         }
 
         // ============================================================
