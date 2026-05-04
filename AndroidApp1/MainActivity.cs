@@ -229,12 +229,12 @@ namespace AndroidApp1
                 using var timeout = new CancellationTokenSource(300);
                 using var linked = CancellationTokenSource.CreateLinkedTokenSource(ct, timeout.Token);
 
-                using var response = await httpClient.GetAsync($"http://{ip}/", linked.Token);
+                // 请求 /get 端点，返回有效角度即视为找到设备
+                using var response = await httpClient.GetAsync($"http://{ip}/get", linked.Token);
                 if (!response.IsSuccessStatusCode) return null;
 
-                string body = await response.Content.ReadAsStringAsync();
-                // 通过HTML标题识别ESP8266舵机页面
-                if (body.Contains("ESP8266 Servo"))
+                string body = (await response.Content.ReadAsStringAsync()).Trim();
+                if (int.TryParse(body, out int angle) && angle >= 0 && angle <= 180)
                     return ip;
             }
             catch { }
