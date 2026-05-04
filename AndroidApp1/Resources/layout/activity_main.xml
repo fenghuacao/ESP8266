@@ -1,184 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#f5f5f5">
+    android:background="#f0f2f5">
 
-    <!-- 标题 -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ESP8266 Servo Controller"
-        android:textSize="24sp"
-        android:textColor="#333333"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"/>
-
-    <!-- 当前位置显示 -->
-    <TextView
-        android:id="@+id/tvPosition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Position: 90°"
-        android:textSize="48sp"
-        android:textColor="#007bff"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"/>
-
-    <!-- 滑块控制 -->
-    <SeekBar
-        android:id="@+id/sbServo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:min="0"
-        android:max="180"
-        android:progress="90"
-        android:layout_marginBottom="20dp"/>
-
-    <!-- 预设角度按钮 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20dp">
-
-        <Button
-            android:id="@+id/btn0"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="0°"
-            android:background="#007bff"
-            android:textColor="#ffffff"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/btn45"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="45°"
-            android:background="#007bff"
-            android:textColor="#ffffff"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/btn90"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="90°"
-            android:background="#007bff"
-            android:textColor="#ffffff"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/btn135"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="135°"
-            android:background="#007bff"
-            android:textColor="#ffffff"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/btn180"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="180°"
-            android:background="#007bff"
-            android:textColor="#ffffff"
-            android:layout_margin="5dp"/>
-    </LinearLayout>
-
-    <!-- 手动输入区域 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#ffffff"
-        android:padding="20dp"
-        android:layout_marginTop="20dp">
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Manual Input"
-            android:textSize="18sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            android:layout_marginBottom="15dp"/>
-
+        <!-- ============================================ -->
+        <!-- 顶部标题栏 + 连接状态 -->
+        <!-- ============================================ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
 
-            <EditText
-                android:id="@+id/etManual"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:hint="0-180"
-                android:inputType="number"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Servo Controller"
+                android:textSize="22sp"
+                android:textColor="#1a1a2e"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="○"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_marginEnd="4dp"/>
+
+        </LinearLayout>
+
+        <!-- ============================================ -->
+        <!-- 卡片：位置显示 + 滑块 -->
+        <!-- ============================================ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#ffffff"
+            android:padding="20dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="POSITION"
+                android:textSize="12sp"
+                android:textColor="#999999"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--°"
+                android:textSize="56sp"
+                android:textColor="#2196F3"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginBottom="16dp"/>
+
+            <SeekBar
+                android:id="@+id/sbServo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:min="0"
+                android:max="180"
+                android:progress="90"
+                android:paddingTop="4dp"/>
+
+        </LinearLayout>
+
+        <!-- ============================================ -->
+        <!-- 预设角度按钮 -->
+        <!-- ============================================ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="12dp">
 
             <Button
-                android:id="@+id/btnSend"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:text="Send"
-                android:background="#007bff"
-                android:textColor="#ffffff"/>
+                android:id="@+id/btn0"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="0°"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:background="#2196F3"
+                android:layout_margin="3dp"/>
+
+            <Button
+                android:id="@+id/btn45"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="45°"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:background="#2196F3"
+                android:layout_margin="3dp"/>
+
+            <Button
+                android:id="@+id/btn90"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="90°"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:background="#2196F3"
+                android:layout_margin="3dp"/>
+
+            <Button
+                android:id="@+id/btn135"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="135°"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:background="#2196F3"
+                android:layout_margin="3dp"/>
+
+            <Button
+                android:id="@+id/btn180"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="180°"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:background="#2196F3"
+                android:layout_margin="3dp"/>
+
         </LinearLayout>
-    </LinearLayout>
 
-    <!-- 服务器连接区域 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#ffffff"
-        android:padding="20dp"
-        android:layout_marginTop="20dp">
-
-        <TextView
+        <!-- ============================================ -->
+        <!-- 卡片：手动输入 -->
+        <!-- ============================================ -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Server Connection"
-            android:textSize="18sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            android:layout_marginBottom="15dp"/>
+            android:orientation="vertical"
+            android:background="#ffffff"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MANUAL INPUT"
+                android:textSize="12sp"
+                android:textColor="#999999"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/etManual"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:hint="0-180"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:background="@android:drawable/editbox_background"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btnSend"
+                    android:layout_width="80dp"
+                    android:layout_height="44dp"
+                    android:text="Send"
+                    android:textSize="14sp"
+                    android:textColor="#ffffff"
+                    android:background="#2196F3"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ============================================ -->
+        <!-- 底部：服务器 IP 设置 -->
+        <!-- ============================================ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center_vertical"
+            android:background="#ffffff"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Server"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginEnd="8dp"/>
 
             <EditText
                 android:id="@+id/etServerAddress"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:hint="192.168.4.1"
+                android:layout_weight="1"
+                android:hint="IP address"
                 android:inputType="textUri"
                 android:gravity="center"
-                android:layout_marginRight="10dp"/>
+                android:textSize="14sp"
+                android:background="@android:drawable/editbox_background"
+                android:layout_marginEnd="8dp"/>
 
             <Button
                 android:id="@+id/btnConnect"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:text="Connect"
-                android:background="#28a745"
-                android:textColor="#ffffff"/>
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:text="Set"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                android:background="#4CAF50"/>
+
         </LinearLayout>
+
+        <!-- ============================================ -->
+        <!-- 连接日志（启动扫描时自动显示） -->
+        <!-- ============================================ -->
+        <LinearLayout
+            android:id="@+id/logPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#ffffff"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CONNECTION LOG"
+                android:textSize="10sp"
+                android:textColor="#999999"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/tvLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="#555555"
+                android:typeface="monospace"
+                android:maxLines="8"
+                android:minLines="2"
+                android:lineSpacingExtra="2dp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

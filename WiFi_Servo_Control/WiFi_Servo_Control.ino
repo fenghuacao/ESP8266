@@ -134,6 +134,7 @@ void setup() {
 
   // WiFi连接 — 带超时机制，超时后重启
   Serial.print("Connecting to WiFi");
+
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   int attempts = 0;

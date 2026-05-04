@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-  <application android:allowBackup="true" android:icon="@mipmap/appicon" android:label="@string/app_name" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true">
+  <!--
+    ESP8266只支持HTTP明文通信，Android 9+默认禁止明文流量，
+    需声明 usesCleartextTraffic 以允许 http:// 请求。
+  -->
+  <application android:allowBackup="true"
+               android:icon="@mipmap/appicon"
+               android:label="@string/app_name"
+               android:roundIcon="@mipmap/appicon_round"
+               android:supportsRtl="true"
+               android:usesCleartextTraffic="true">
   </application>
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
