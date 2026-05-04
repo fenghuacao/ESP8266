@@ -1,0 +1,177 @@
+; ModuleID = 'compressed_assemblies.arm64-v8a.ll'
+source_filename = "compressed_assemblies.arm64-v8a.ll"
+target datalayout = "e-m:e-i8:8:32-i16:16:32-i64:64-i128:128-n32:64-S128"
+target triple = "aarch64-unknown-linux-android21"
+
+%struct.CompressedAssemblies = type {
+	i32, ; uint32_t count
+	ptr ; CompressedAssemblyDescriptor descriptors
+}
+
+%struct.CompressedAssemblyDescriptor = type {
+	i32, ; uint32_t uncompressed_file_size
+	i1, ; bool loaded
+	ptr ; uint8_t data
+}
+
+@compressed_assemblies = dso_local local_unnamed_addr global %struct.CompressedAssemblies {
+	i32 23, ; uint32_t count
+	ptr @compressed_assembly_descriptors; CompressedAssemblyDescriptor* descriptors
+}, align 8
+
+@compressed_assembly_descriptors = internal dso_local global [23 x %struct.CompressedAssemblyDescriptor] [
+	%struct.CompressedAssemblyDescriptor {
+		i32 2560, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_0; uint8_t* data
+	}, ; 0: _Microsoft.Android.Resource.Designer
+	%struct.CompressedAssemblyDescriptor {
+		i32 14848, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_1; uint8_t* data
+	}, ; 1: AndroidApp1
+	%struct.CompressedAssemblyDescriptor {
+		i32 16896, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_2; uint8_t* data
+	}, ; 2: System.Collections.Concurrent
+	%struct.CompressedAssemblyDescriptor {
+		i32 10752, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_3; uint8_t* data
+	}, ; 3: System.Collections.NonGeneric
+	%struct.CompressedAssemblyDescriptor {
+		i32 11776, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_4; uint8_t* data
+	}, ; 4: System.Collections
+	%struct.CompressedAssemblyDescriptor {
+		i32 11776, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_5; uint8_t* data
+	}, ; 5: System.Console
+	%struct.CompressedAssemblyDescriptor {
+		i32 18432, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_6; uint8_t* data
+	}, ; 6: System.Diagnostics.DiagnosticSource
+	%struct.CompressedAssemblyDescriptor {
+		i32 59904, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_7; uint8_t* data
+	}, ; 7: System.Formats.Asn1
+	%struct.CompressedAssemblyDescriptor {
+		i32 21504, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_8; uint8_t* data
+	}, ; 8: System.IO.Compression.Brotli
+	%struct.CompressedAssemblyDescriptor {
+		i32 28672, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_9; uint8_t* data
+	}, ; 9: System.IO.Compression
+	%struct.CompressedAssemblyDescriptor {
+		i32 15360, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_10; uint8_t* data
+	}, ; 10: System.Linq
+	%struct.CompressedAssemblyDescriptor {
+		i32 123904, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_11; uint8_t* data
+	}, ; 11: System.Net.Http
+	%struct.CompressedAssemblyDescriptor {
+		i32 35840, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_12; uint8_t* data
+	}, ; 12: System.Net.Primitives
+	%struct.CompressedAssemblyDescriptor {
+		i32 7168, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_13; uint8_t* data
+	}, ; 13: System.Net.Requests
+	%struct.CompressedAssemblyDescriptor {
+		i32 66560, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_14; uint8_t* data
+	}, ; 14: System.Private.Uri
+	%struct.CompressedAssemblyDescriptor {
+		i32 9728, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_15; uint8_t* data
+	}, ; 15: System.Runtime.InteropServices
+	%struct.CompressedAssemblyDescriptor {
+		i32 67072, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_16; uint8_t* data
+	}, ; 16: System.Runtime.Numerics
+	%struct.CompressedAssemblyDescriptor {
+		i32 6656, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_17; uint8_t* data
+	}, ; 17: System.Runtime
+	%struct.CompressedAssemblyDescriptor {
+		i32 120832, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_18; uint8_t* data
+	}, ; 18: System.Security.Cryptography
+	%struct.CompressedAssemblyDescriptor {
+		i32 1587712, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_19; uint8_t* data
+	}, ; 19: System.Private.CoreLib
+	%struct.CompressedAssemblyDescriptor {
+		i32 149504, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_20; uint8_t* data
+	}, ; 20: Java.Interop
+	%struct.CompressedAssemblyDescriptor {
+		i32 8192, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_21; uint8_t* data
+	}, ; 21: Mono.Android.Runtime
+	%struct.CompressedAssemblyDescriptor {
+		i32 426496, ; uint32_t uncompressed_file_size
+		i1 false, ; bool loaded
+		ptr @__compressedAssemblyData_22; uint8_t* data
+	} ; 22: Mono.Android
+], align 8
+
+@__compressedAssemblyData_0 = internal dso_local global [2560 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_1 = internal dso_local global [14848 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_2 = internal dso_local global [16896 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_3 = internal dso_local global [10752 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_4 = internal dso_local global [11776 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_5 = internal dso_local global [11776 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_6 = internal dso_local global [18432 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_7 = internal dso_local global [59904 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_8 = internal dso_local global [21504 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_9 = internal dso_local global [28672 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_10 = internal dso_local global [15360 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_11 = internal dso_local global [123904 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_12 = internal dso_local global [35840 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_13 = internal dso_local global [7168 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_14 = internal dso_local global [66560 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_15 = internal dso_local global [9728 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_16 = internal dso_local global [67072 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_17 = internal dso_local global [6656 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_18 = internal dso_local global [120832 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_19 = internal dso_local global [1587712 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_20 = internal dso_local global [149504 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_21 = internal dso_local global [8192 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_22 = internal dso_local global [426496 x i8] zeroinitializer, align 1
+
+; Metadata
+!llvm.module.flags = !{!0, !1, !7, !8, !9, !10}
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 7, !"PIC Level", i32 2}
+!llvm.ident = !{!2}
+!2 = !{!".NET for Android remotes/origin/release/9.0.1xx @ 9abff7703206541fdb83ffa80fe2c2753ad1997b"}
+!3 = !{!4, !4, i64 0}
+!4 = !{!"any pointer", !5, i64 0}
+!5 = !{!"omnipotent char", !6, i64 0}
+!6 = !{!"Simple C++ TBAA"}
+!7 = !{i32 1, !"branch-target-enforcement", i32 0}
+!8 = !{i32 1, !"sign-return-address", i32 0}
+!9 = !{i32 1, !"sign-return-address-all", i32 0}
+!10 = !{i32 1, !"sign-return-address-with-bkey", i32 0}

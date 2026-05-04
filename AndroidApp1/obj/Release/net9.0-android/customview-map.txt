@@ -1,0 +1,16 @@
+adaptive-icon;obj\Release\net9.0-android\res\mipmap-anydpi-v26\appicon_round.xml
+adaptive-icon;obj\Release\net9.0-android\res\mipmap-anydpi-v26\appicon.xml
+background;obj\Release\net9.0-android\res\mipmap-anydpi-v26\appicon_round.xml
+background;obj\Release\net9.0-android\res\mipmap-anydpi-v26\appicon.xml
+Button;obj\Release\net9.0-android\res\layout\activity_main.xml
+color;obj\Release\net9.0-android\res\values\ic_launcher_background.xml
+EditText;obj\Release\net9.0-android\res\layout\activity_main.xml
+foreground;obj\Release\net9.0-android\res\mipmap-anydpi-v26\appicon_round.xml
+foreground;obj\Release\net9.0-android\res\mipmap-anydpi-v26\appicon.xml
+LinearLayout;obj\Release\net9.0-android\res\layout\activity_main.xml
+resources;obj\Release\net9.0-android\res\values\ic_launcher_background.xml
+resources;obj\Release\net9.0-android\res\values\strings.xml
+ScrollView;obj\Release\net9.0-android\res\layout\activity_main.xml
+SeekBar;obj\Release\net9.0-android\res\layout\activity_main.xml
+string;obj\Release\net9.0-android\res\values\strings.xml
+TextView;obj\Release\net9.0-android\res\layout\activity_main.xml

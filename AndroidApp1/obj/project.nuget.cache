@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Bj1sljJ8XvU=",
+  "success": true,
+  "projectFilePath": "C:\\WorkSpace\\ESP8266_Servo_Control\\AndroidApp1\\AndroidApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\18811\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.14\\microsoft.net.illink.tasks.9.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

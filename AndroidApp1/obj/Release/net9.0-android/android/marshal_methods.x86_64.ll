@@ -1,0 +1,164 @@
+; ModuleID = 'marshal_methods.x86_64.ll'
+source_filename = "marshal_methods.x86_64.ll"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-unknown-linux-android21"
+
+%struct.MarshalMethodName = type {
+	i64, ; uint64_t id
+	ptr ; char* name
+}
+
+%struct.MarshalMethodsManagedClass = type {
+	i32, ; uint32_t token
+	ptr ; MonoClass klass
+}
+
+@assembly_image_cache = dso_local local_unnamed_addr global [23 x ptr] zeroinitializer, align 16
+
+; Each entry maps hash of an assembly name to an index into the `assembly_image_cache` array
+@assembly_image_cache_hashes = dso_local local_unnamed_addr constant [69 x i64] [
+	i64 u0x02abedc11addc1ed, ; 0: lib_Mono.Android.Runtime.dll.so => 21
+	i64 u0x0517ef04e06e9f76, ; 1: System.Net.Primitives => 12
+	i64 u0x0581db89237110e9, ; 2: lib_System.Collections.dll.so => 4
+	i64 u0x07dcdc7460a0c5e4, ; 3: System.Collections.NonGeneric => 3
+	i64 u0x092266563089ae3e, ; 4: lib_System.Collections.NonGeneric.dll.so => 3
+	i64 u0x09d144a7e214d457, ; 5: System.Security.Cryptography => 18
+	i64 u0x0c59ad9fbbd43abe, ; 6: Mono.Android => 22
+	i64 u0x10f6cfcbcf801616, ; 7: System.IO.Compression.Brotli => 8
+	i64 u0x13f1e5e209e91af4, ; 8: lib_Java.Interop.dll.so => 20
+	i64 u0x1a05acab9e3c5247, ; 9: AndroidApp1 => 1
+	i64 u0x1a91866a319e9259, ; 10: lib_System.Collections.Concurrent.dll.so => 2
+	i64 u0x1c753b5ff15bce1b, ; 11: Mono.Android.Runtime.dll => 21
+	i64 u0x209375905fcc1bad, ; 12: lib_System.IO.Compression.Brotli.dll.so => 8
+	i64 u0x2174319c0d835bc9, ; 13: System.Runtime => 17
+	i64 u0x2407aef2bbe8fadf, ; 14: System.Console => 5
+	i64 u0x27b410442fad6cf1, ; 15: Java.Interop.dll => 20
+	i64 u0x2801845a2c71fbfb, ; 16: System.Net.Primitives.dll => 12
+	i64 u0x2afc1c4f898552ee, ; 17: lib_System.Formats.Asn1.dll.so => 7
+	i64 u0x2eb6129318e6b2e5, ; 18: lib_AndroidApp1.dll.so => 1
+	i64 u0x31195fef5d8fb552, ; 19: _Microsoft.Android.Resource.Designer.dll => 0
+	i64 u0x428a52a86ea1b01a, ; 20: AndroidApp1.dll => 1
+	i64 u0x434c4e1d9284cdae, ; 21: Mono.Android.dll => 22
+	i64 u0x4e32f00cb0937401, ; 22: Mono.Android.Runtime => 21
+	i64 u0x526ce79eb8e90527, ; 23: lib_System.Net.Primitives.dll.so => 12
+	i64 u0x54795225dd1587af, ; 24: lib_System.Runtime.dll.so => 17
+	i64 u0x571c5cfbec5ae8e2, ; 25: System.Private.Uri => 14
+	i64 u0x579a06fed6eec900, ; 26: System.Private.CoreLib.dll => 19
+	i64 u0x57c542c14049b66d, ; 27: System.Diagnostics.DiagnosticSource => 6
+	i64 u0x5db0cbbd1028510e, ; 28: lib_System.Runtime.InteropServices.dll.so => 15
+	i64 u0x622eef6f9e59068d, ; 29: System.Private.CoreLib => 19
+	i64 u0x65ece51227bfa724, ; 30: lib_System.Runtime.Numerics.dll.so => 16
+	i64 u0x6692e924eade1b29, ; 31: lib_System.Console.dll.so => 5
+	i64 u0x68fbbbe2eb455198, ; 32: System.Formats.Asn1 => 7
+	i64 u0x6a4d7577b2317255, ; 33: System.Runtime.InteropServices.dll => 15
+	i64 u0x76ca07b878f44da0, ; 34: System.Runtime.Numerics.dll => 16
+	i64 u0x7dfc3d6d9d8d7b70, ; 35: System.Collections => 4
+	i64 u0x87f6569b25707834, ; 36: System.IO.Compression.Brotli.dll => 8
+	i64 u0x8b4ff5d0fdd5faa1, ; 37: lib_System.Diagnostics.DiagnosticSource.dll.so => 6
+	i64 u0x8da188285aadfe8e, ; 38: System.Collections.Concurrent => 2
+	i64 u0x903101b46fb73a04, ; 39: _Microsoft.Android.Resource.Designer => 0
+	i64 u0x90393bd4865292f3, ; 40: lib_System.IO.Compression.dll.so => 9
+	i64 u0x91a74f07b30d37e2, ; 41: System.Linq.dll => 10
+	i64 u0x944077d8ca3c6580, ; 42: System.IO.Compression.dll => 9
+	i64 u0x97e144c9d3c6976e, ; 43: System.Collections.Concurrent.dll => 2
+	i64 u0xa0d8259f4cc284ec, ; 44: lib_System.Security.Cryptography.dll.so => 18
+	i64 u0xa5f1ba49b85dd355, ; 45: System.Security.Cryptography.dll => 18
+	i64 u0xaa52de307ef5d1dd, ; 46: System.Net.Http => 11
+	i64 u0xac2af3fa195a15ce, ; 47: System.Runtime.Numerics => 16
+	i64 u0xae282bcd03739de7, ; 48: Java.Interop => 20
+	i64 u0xb81a2c6e0aee50fe, ; 49: lib_System.Private.CoreLib.dll.so => 19
+	i64 u0xba48785529705af9, ; 50: System.Collections.dll => 4
+	i64 u0xbd0e2c0d55246576, ; 51: System.Net.Http.dll => 11
+	i64 u0xc0d928351ab5ca77, ; 52: System.Console.dll => 5
+	i64 u0xc12b8b3afa48329c, ; 53: lib_System.Linq.dll.so => 10
+	i64 u0xc519125d6bc8fb11, ; 54: lib_System.Net.Requests.dll.so => 13
+	i64 u0xc5a0f4b95a699af7, ; 55: lib_System.Private.Uri.dll.so => 14
+	i64 u0xcbd4fdd9cef4a294, ; 56: lib__Microsoft.Android.Resource.Designer.dll.so => 0
+	i64 u0xcd10a42808629144, ; 57: System.Net.Requests => 13
+	i64 u0xcf23d8093f3ceadf, ; 58: System.Diagnostics.DiagnosticSource.dll => 6
+	i64 u0xd333d0af9e423810, ; 59: System.Runtime.InteropServices => 15
+	i64 u0xd3651b6fc3125825, ; 60: System.Private.Uri.dll => 14
+	i64 u0xdad05a11827959a3, ; 61: System.Collections.NonGeneric.dll => 3
+	i64 u0xdbf9607a441b4505, ; 62: System.Linq => 10
+	i64 u0xdd2b722d78ef5f43, ; 63: System.Runtime.dll => 17
+	i64 u0xe2420585aeceb728, ; 64: System.Net.Requests.dll => 13
+	i64 u0xe5434e8a119ceb69, ; 65: lib_Mono.Android.dll.so => 22
+	i64 u0xf1c4b4005493d871, ; 66: System.Formats.Asn1.dll => 7
+	i64 u0xf4c1dd70a5496a17, ; 67: System.IO.Compression => 9
+	i64 u0xfbf0a31c9fc34bc4 ; 68: lib_System.Net.Http.dll.so => 11
+], align 16
+
+@assembly_image_cache_indices = dso_local local_unnamed_addr constant [69 x i32] [
+	i32 21, i32 12, i32 4, i32 3, i32 3, i32 18, i32 22, i32 8,
+	i32 20, i32 1, i32 2, i32 21, i32 8, i32 17, i32 5, i32 20,
+	i32 12, i32 7, i32 1, i32 0, i32 1, i32 22, i32 21, i32 12,
+	i32 17, i32 14, i32 19, i32 6, i32 15, i32 19, i32 16, i32 5,
+	i32 7, i32 15, i32 16, i32 4, i32 8, i32 6, i32 2, i32 0,
+	i32 9, i32 10, i32 9, i32 2, i32 18, i32 18, i32 11, i32 16,
+	i32 20, i32 19, i32 4, i32 11, i32 5, i32 10, i32 13, i32 14,
+	i32 0, i32 13, i32 6, i32 15, i32 14, i32 3, i32 10, i32 17,
+	i32 13, i32 22, i32 7, i32 9, i32 11
+], align 16
+
+@marshal_methods_number_of_classes = dso_local local_unnamed_addr constant i32 0, align 4
+
+@marshal_methods_class_cache = dso_local local_unnamed_addr global [0 x %struct.MarshalMethodsManagedClass] zeroinitializer, align 8
+
+; Names of classes in which marshal methods reside
+@mm_class_names = dso_local local_unnamed_addr constant [0 x ptr] zeroinitializer, align 8
+
+@mm_method_names = dso_local local_unnamed_addr constant [1 x %struct.MarshalMethodName] [
+	%struct.MarshalMethodName {
+		i64 u0x0000000000000000, ; name: 
+		ptr @.MarshalMethodName.0_name; char* name
+	} ; 0
+], align 8
+
+; get_function_pointer (uint32_t mono_image_index, uint32_t class_index, uint32_t method_token, void*& target_ptr)
+@get_function_pointer = internal dso_local unnamed_addr global ptr null, align 8
+
+; Functions
+
+; Function attributes: memory(write, argmem: none, inaccessiblemem: none) "min-legal-vector-width"="0" mustprogress "no-trapping-math"="true" nofree norecurse nosync nounwind "stack-protector-buffer-size"="8" uwtable willreturn
+define void @xamarin_app_init(ptr nocapture noundef readnone %env, ptr noundef %fn) local_unnamed_addr #0
+{
+	%fnIsNull = icmp eq ptr %fn, null
+	br i1 %fnIsNull, label %1, label %2
+
+1: ; preds = %0
+	%putsResult = call noundef i32 @puts(ptr @.str.0)
+	call void @abort()
+	unreachable 
+
+2: ; preds = %1, %0
+	store ptr %fn, ptr @get_function_pointer, align 8, !tbaa !3
+	ret void
+}
+
+; Strings
+@.str.0 = private unnamed_addr constant [40 x i8] c"get_function_pointer MUST be specified\0A\00", align 16
+
+;MarshalMethodName
+@.MarshalMethodName.0_name = private unnamed_addr constant [1 x i8] c"\00", align 1
+
+; External functions
+
+; Function attributes: "no-trapping-math"="true" noreturn nounwind "stack-protector-buffer-size"="8"
+declare void @abort() local_unnamed_addr #2
+
+; Function attributes: nofree nounwind
+declare noundef i32 @puts(ptr noundef) local_unnamed_addr #1
+attributes #0 = { memory(write, argmem: none, inaccessiblemem: none) "min-legal-vector-width"="0" mustprogress "no-trapping-math"="true" nofree norecurse nosync nounwind "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+crc32,+cx16,+cx8,+fxsr,+mmx,+popcnt,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+ssse3,+x87" "tune-cpu"="generic" uwtable willreturn }
+attributes #1 = { nofree nounwind }
+attributes #2 = { "no-trapping-math"="true" noreturn nounwind "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+crc32,+cx16,+cx8,+fxsr,+mmx,+popcnt,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+ssse3,+x87" "tune-cpu"="generic" }
+
+; Metadata
+!llvm.module.flags = !{!0, !1}
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 7, !"PIC Level", i32 2}
+!llvm.ident = !{!2}
+!2 = !{!".NET for Android remotes/origin/release/9.0.1xx @ 9abff7703206541fdb83ffa80fe2c2753ad1997b"}
+!3 = !{!4, !4, i64 0}
+!4 = !{!"any pointer", !5, i64 0}
+!5 = !{!"omnipotent char", !6, i64 0}
+!6 = !{!"Simple C++ TBAA"}

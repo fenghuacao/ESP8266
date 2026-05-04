@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AndroidApp1</id>
+    <version>1.0.0</version>
+    <authors>AndroidApp1</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="4bba59ea77ab9ecf7d93b2410815cbbba1548a0c" />
+    <dependencies>
+      <group targetFramework="net9.0-android35.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\WorkSpace\ESP8266_Servo_Control\AndroidApp1\bin\Release\net9.0-android\AndroidApp1.runtimeconfig.json" target="lib\net9.0-android35.0\AndroidApp1.runtimeconfig.json" />
+    <file src="C:\WorkSpace\ESP8266_Servo_Control\AndroidApp1\bin\Release\net9.0-android\AndroidApp1.dll" target="lib\net9.0-android35.0\AndroidApp1.dll" />
+    <file src="C:\WorkSpace\ESP8266_Servo_Control\AndroidApp1\bin\Release\net9.0-android\AndroidApp1.xml" target="lib\net9.0-android35.0\AndroidApp1.xml" />
+  </files>
+</package>

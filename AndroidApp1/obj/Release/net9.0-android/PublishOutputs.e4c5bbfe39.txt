@@ -1,0 +1,3 @@
+C:\WorkSpace\ESP8266_Servo_Control\AndroidApp1\bin\Release\net9.0-android\publish\com.companyname.AndroidApp1-Signed.apk
+C:\WorkSpace\ESP8266_Servo_Control\AndroidApp1\bin\Release\net9.0-android\publish\com.companyname.AndroidApp1.apk
+C:\WorkSpace\ESP8266_Servo_Control\AndroidApp1\bin\Release\net9.0-android\publish\_Microsoft.Android.Resource.Designer.dll
